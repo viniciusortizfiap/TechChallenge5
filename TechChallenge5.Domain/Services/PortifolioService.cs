@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using TechChallenge5.Domain.DTO.Portfolio;
+using TechChallenge5.Domain.DTO.Portifolio;
 using TechChallenge5.Domain.Entities;
 using TechChallenge5.Domain.Exceptions;
 using TechChallenge5.Domain.Interfaces.Repositories;
@@ -10,20 +11,25 @@ namespace TechChallenge5.Domain.Services
     public class PortifolioService : IPortifolioService
     {
         private readonly IPortifolioRepository _portifolioRepository;
+        private readonly ITransacaoRepository _transacaoRepository;
         private readonly IMapper _mapper;
 
-        public PortifolioService(IPortifolioRepository portfolioRepository, IMapper mapper)
+        public PortifolioService(
+            IPortifolioRepository portfolioRepository, 
+            ITransacaoRepository transacaoRepository,
+            IMapper mapper
+        )
         {
             _portifolioRepository = portfolioRepository;
+            _transacaoRepository = transacaoRepository;
             _mapper = mapper;
         }
 
         public async Task<PortifolioEntity> Add(int usuarioId, CadastrarPortifolioDTO cadastrarPortfolioDTO)
         {
-            var portfolio = _mapper.Map<PortifolioEntity>(cadastrarPortfolioDTO);
-            portfolio.UsuarioId = usuarioId;
+            var portifolio = new PortifolioEntity(usuarioId, cadastrarPortfolioDTO.Nome, cadastrarPortfolioDTO.Descricao);
 
-            return await _portifolioRepository.Add(portfolio);
+            return await _portifolioRepository.Add(portifolio);
         }
 
         public async Task Delete(int portifolioId)
@@ -39,16 +45,38 @@ namespace TechChallenge5.Domain.Services
 
         }
 
-        public async Task<IList<PortifolioEntity>> GetAll()
+        public async Task<IList<PortifolioEntity>> GetAll(int usuarioId)
         {
-            return await _portifolioRepository.GetAllWithUser();
+            return await _portifolioRepository.GetAllWithUser(usuarioId);
         }
 
-        public async Task<PortifolioEntity> GetById(int portifolioId)
+        public async Task<PortifolioDetalhesOutputDto?> GetById(int usuarioId, int portifolioId)
         {
             var portifolio = await _portifolioRepository.GetById(portifolioId);
 
-            return portifolio;
+            if(portifolio is not null && !portifolio.UsuarioId.Equals(usuarioId))
+            {
+                return null;
+            }
+
+            var transacoes = await _transacaoRepository.GetAllByPortifolio(portifolioId);
+
+            var resultadoPorAtivo = transacoes
+                .GroupBy(t => t.Ativo.Codigo)
+                .Select(g => new PortifolioDetalhesQuantidadeOutputDto
+                {
+                    Codigo = g.Key,
+                    Quantidade = g.Sum(t => t.TipoTransacao == "COMPRA" ? t.Quantidade : -t.Quantidade)
+                });
+
+            var output = new PortifolioDetalhesOutputDto
+            {
+                Descricao = portifolio.Descricao,
+                Nome = portifolio.Nome,
+                Detalhes = resultadoPorAtivo
+            };
+
+            return output;
         }
 
         public async Task<PortifolioEntity> Update(int portifolioId, AtualizarPortifolioDTO atualizarPortifolioDTO)

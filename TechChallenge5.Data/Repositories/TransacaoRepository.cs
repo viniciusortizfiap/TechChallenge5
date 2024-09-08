@@ -11,6 +11,15 @@ namespace TechChallenge5.Data.Repositories
         {
         }
 
+        public async Task<IEnumerable<TransacaoEntity>> GetAllByPortifolio(int portifolioId)
+        {
+            return await _dbSet
+                .AsNoTracking()
+                .Include(p => p.Ativo)
+                .Where(p => p.PortifolioId.Equals(portifolioId))
+                .ToListAsync();
+        }
+
         public async Task<IEnumerable<TransacaoEntity>> GetAllWithAtivoAndPortifolio()
         {
             return await _dbSet

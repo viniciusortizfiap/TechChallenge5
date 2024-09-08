@@ -13,13 +13,15 @@ namespace TechChallenge5.Tests.Core.Domain.Services
     {
         private IPortifolioService _portifolioService;
         private Mock<IPortifolioRepository> _portifolioRepositoryMock;
+        private Mock<ITransacaoRepository> _mockTransacaoRepository;
         private Mock<IMapper> _mockMapper;
 
         public PortifolioServiceTests()
         {
             _mockMapper = new Mock<IMapper>();
             _portifolioRepositoryMock = new Mock<IPortifolioRepository>();
-            _portifolioService = new PortifolioService(_portifolioRepositoryMock.Object, _mockMapper.Object);
+            _mockTransacaoRepository = new Mock<ITransacaoRepository>();
+            _portifolioService = new PortifolioService(_portifolioRepositoryMock.Object, _mockTransacaoRepository.Object, _mockMapper.Object);
         }
 
         [Test]
@@ -31,11 +33,10 @@ namespace TechChallenge5.Tests.Core.Domain.Services
             _portifolioRepositoryMock.Setup(x => x.GetById(It.IsAny<int>())).ReturnsAsync(portifolio);
 
             // Act
-            var result = await _portifolioService.GetById(1);
+            var result = await _portifolioService.GetById(1, 1);
 
             // Assert
             Assert.NotNull(result);
-            Assert.AreEqual(portifolio.Id, result.Id);
             Assert.AreEqual(portifolio.Nome, result.Nome);
             Assert.AreEqual(portifolio.Descricao, result.Descricao);
         }
@@ -108,11 +109,12 @@ namespace TechChallenge5.Tests.Core.Domain.Services
             // Arrange
             var portifolio = new PortifolioEntity(1, "Portifolio 1", "Portifolio 1 Description");
             var portifolios = new List<PortifolioEntity> { portifolio };
+            var usuarioId = 1;
 
-            _portifolioRepositoryMock.Setup(x => x.GetAllWithUser()).ReturnsAsync(portifolios);
+            _portifolioRepositoryMock.Setup(x => x.GetAllWithUser(It.IsAny<int>())).ReturnsAsync(portifolios);
 
             // Act
-            var result = await _portifolioService.GetAll();
+            var result = await _portifolioService.GetAll(usuarioId);
 
             // Assert
             Assert.NotNull(result);

@@ -7,5 +7,7 @@ namespace TechChallenge5.Domain.Interfaces.Repositories
         Task<TransacaoEntity?> GetByIdWithAtivoAndPortifolio(int id);
 
         Task<IEnumerable<TransacaoEntity>> GetAllWithAtivoAndPortifolio();
+
+        Task<IEnumerable<TransacaoEntity>> GetAllByPortifolio(int portifolioId);
     }
 }

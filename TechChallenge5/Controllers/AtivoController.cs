@@ -7,7 +7,6 @@ namespace TechChallenge5.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    [Authorize]
     public class AtivoController : ControllerBase
     {
         private readonly IAtivoService _ativoService;
