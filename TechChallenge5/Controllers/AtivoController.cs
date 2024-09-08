@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TechChallenge5.Domain.DTO.Ativo;
-using TechChallenge5.Domain.Entities;
 using TechChallenge5.Domain.Interfaces.Services;
 
 namespace TechChallenge5.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Authorize]
     public class AtivoController : ControllerBase
     {
         private readonly IAtivoService _ativoService;
@@ -18,12 +18,14 @@ namespace TechChallenge5.Controllers
         }
 
         [HttpGet("todos-ativos")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _ativoService.GetAll());
         }
 
         [HttpGet("ativo-id/{id:int}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetById(int id)
         {
             var ativo = await _ativoService.GetById(id);
