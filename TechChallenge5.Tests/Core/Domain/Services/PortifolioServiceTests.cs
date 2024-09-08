@@ -2,7 +2,6 @@
 using Moq;
 using TechChallenge5.Domain.DTO.Portfolio;
 using TechChallenge5.Domain.Entities;
-using TechChallenge5.Domain.Exceptions;
 using TechChallenge5.Domain.Interfaces.Repositories;
 using TechChallenge5.Domain.Interfaces.Services;
 using TechChallenge5.Domain.Services;
@@ -81,7 +80,7 @@ namespace TechChallenge5.Tests.Core.Domain.Services
             _portifolioRepositoryMock.Setup(x => x.Update(It.IsAny<PortifolioEntity>())).ReturnsAsync(portifolio);
 
             // Act
-            var result = await _portifolioService.Update(1,portifolioDTO);
+            var result = await _portifolioService.Update(1, portifolioDTO);
 
             // Assert
             Assert.NotNull(result);
@@ -121,7 +120,7 @@ namespace TechChallenge5.Tests.Core.Domain.Services
             Assert.AreEqual(portifolios.Count, result.Count);
             Assert.AreEqual(portifolios[0].Id, result[0].Id);
             Assert.AreEqual(portifolios[0].Nome, result[0].Nome);
-            Assert.AreEqual(portifolios[0].Descricao, result[0].Descricao);       
+            Assert.AreEqual(portifolios[0].Descricao, result[0].Descricao);
 
         }
     }

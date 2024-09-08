@@ -6,7 +6,7 @@ namespace TechChallenge5.Tests.Fixtures.Domain.Services
 {
     public class UsuarioServiceFixture
     {
-        public static Faker _faker {  get; set; } = new Faker();
+        public static Faker _faker { get; set; } = new Faker();
 
         public static UsuarioEntity CreateUsuarioEntity()
         {

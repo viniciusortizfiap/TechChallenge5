@@ -1,5 +1,4 @@
 ﻿using Microsoft.OpenApi.Models;
-using System.Security.Cryptography.Xml;
 
 namespace TechChallenge5.Configuration
 {

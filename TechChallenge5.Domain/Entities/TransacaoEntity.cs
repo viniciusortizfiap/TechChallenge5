@@ -12,10 +12,10 @@
         public decimal Preco { get; set; }
 
         public TransacaoEntity(
-            int portifolioId, 
-            int ativoId, 
-            string tipoTransacao, 
-            int quantidade, 
+            int portifolioId,
+            int ativoId,
+            string tipoTransacao,
+            int quantidade,
             decimal preco
         )
         {
@@ -53,7 +53,7 @@
 
         public TransacaoEntity()
         {
-            
+
         }
     }
 }
