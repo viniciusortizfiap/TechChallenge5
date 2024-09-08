@@ -47,16 +47,16 @@ namespace TechChallenge5.Tests.Core.Domain.Services
             var portifolio = new PortifolioEntity(1, "Portifolio 1", "Portifolio 1 Description");
             var portifolioDTO = new CadastrarPortifolioDTO
             {
-                UsuarioId = 1,
                 Nome = "Portifolio 1",
                 Descricao = "Portifolio 1 Description"
             };
+            int usuarioId = 1;
 
             _mockMapper.Setup(x => x.Map<PortifolioEntity>(It.IsAny<CadastrarPortifolioDTO>())).Returns(portifolio);
             _portifolioRepositoryMock.Setup(x => x.Add(It.IsAny<PortifolioEntity>())).ReturnsAsync(portifolio);
 
             // Act
-            var result = await _portifolioService.Add(portifolioDTO);
+            var result = await _portifolioService.Add(usuarioId, portifolioDTO);
 
             // Assert
             Assert.NotNull(result);
