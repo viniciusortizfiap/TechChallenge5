@@ -18,9 +18,10 @@ namespace TechChallenge5.Domain.Services
             _mapper = mapper;
         }
 
-        public async Task<PortifolioEntity> Add(CadastrarPortifolioDTO cadastrarPortfolioDTO)
+        public async Task<PortifolioEntity> Add(int usuarioId, CadastrarPortifolioDTO cadastrarPortfolioDTO)
         {
             var portfolio = _mapper.Map<PortifolioEntity>(cadastrarPortfolioDTO);
+            portfolio.UsuarioId = usuarioId;
 
             return await _portifolioRepository.Add(portfolio);
         }

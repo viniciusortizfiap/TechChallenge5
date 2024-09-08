@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TechChallenge5.Domain.DTO.Portfolio;
+using TechChallenge5.Domain.DTO.Transacao;
+using TechChallenge5.Domain.Entities;
 using TechChallenge5.Domain.Interfaces.Services;
 
 namespace TechChallenge5.Controllers
@@ -24,7 +26,7 @@ namespace TechChallenge5.Controllers
         }
 
         [HttpGet("portfolio-id/{id:int}")]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult<PortifolioEntity>> GetById(int id)
         {
             var portfolio = await _portifolioService.GetById(id);
 
@@ -35,9 +37,12 @@ namespace TechChallenge5.Controllers
         }
 
         [HttpPost("cadastrar")]
+        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(CadastrarPortifolioDTO))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Cadastrar(CadastrarPortifolioDTO portfolioDTO)
         {
-            var portfolio = await _portifolioService.Add(portfolioDTO);
+            var id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "Id").Value); 
+            var portfolio = await _portifolioService.Add(id, portfolioDTO);
             return Ok(portfolio);
         }
 

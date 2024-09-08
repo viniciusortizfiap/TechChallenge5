@@ -19,8 +19,6 @@ namespace TechChallenge5.Controllers
 
         // Método para criar uma nova transação
         [HttpPost]
-        [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(TransacaoOutputDto))]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<TransacaoOutputDto>> Create([FromBody] TransacaoInputDto input)
         {
             if (input == null)
