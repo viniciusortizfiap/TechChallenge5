@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TechChallenge5.Domain.DTO.Portfolio;
+using TechChallenge5.Domain.DTO.Portifolio;
 using TechChallenge5.Domain.DTO.Transacao;
 using TechChallenge5.Domain.Entities;
 using TechChallenge5.Domain.Interfaces.Services;
@@ -22,13 +23,16 @@ namespace TechChallenge5.Controllers
         [HttpGet("todos-portfolios")]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _portifolioService.GetAll());
+            var id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "Id").Value);
+            return Ok(await _portifolioService.GetAll(id));
         }
 
         [HttpGet("portfolio-id/{id:int}")]
-        public async Task<ActionResult<PortifolioEntity>> GetById(int id)
+        public async Task<ActionResult<PortifolioDetalhesOutputDto>> GetById(int id)
         {
-            var portfolio = await _portifolioService.GetById(id);
+            var usuarioId = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "Id").Value);
+
+            var portfolio = await _portifolioService.GetById(usuarioId, id);
 
             if (portfolio == null)
                 return NotFound();

@@ -11,9 +11,9 @@ namespace TechChallenge5.Data.Repositories
         {          
         }
 
-        public async Task<IList<PortifolioEntity>> GetAllWithUser()
+        public async Task<IList<PortifolioEntity>> GetAllWithUser(int usuarioId)
         {
-            return await _dbSet.Include(p => p.Usuario).ToListAsync();
+            return await _dbSet.Include(p => p.Usuario).Where(p => p.UsuarioId.Equals(usuarioId)).ToListAsync();
         }
     }
 }

@@ -4,6 +4,6 @@ namespace TechChallenge5.Domain.Interfaces.Repositories
 {
     public interface IPortifolioRepository : IRepository<PortifolioEntity>
     {
-        Task<IList<PortifolioEntity>> GetAllWithUser();
+        Task<IList<PortifolioEntity>> GetAllWithUser(int usuarioId);
     }
 }
