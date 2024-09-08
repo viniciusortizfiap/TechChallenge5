@@ -27,8 +27,7 @@ O sistema irá:
 1. Instale o .NET 8.
 2. Abra o projeto em uma IDE (Visual Studio Code ou Visual Studio 2022).
 3. Configure o projeto TechChallenge5 como o projeto de inicialização (Set as Start Project).
-4. Abra o Package Manager Console e execute o comando Update-Database com o projeto TechChallenge5.Data selecionado.
-5. Execute o projeto de API (dotnet run ou use o botão de start do Visual Studio).
+4. Execute o projeto de API (dotnet run ou use o botão de start do Visual Studio).
 
 # Tecnologias usadas no projeto
 1. .NET 8
