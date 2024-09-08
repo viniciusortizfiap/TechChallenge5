@@ -1,11 +1,5 @@
 ﻿using AutoMapper;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TechChallenge5.Data.Repositories;
 using TechChallenge5.Domain.DTO.Transacao;
 using TechChallenge5.Domain.Entities;
 using TechChallenge5.Domain.Exceptions;

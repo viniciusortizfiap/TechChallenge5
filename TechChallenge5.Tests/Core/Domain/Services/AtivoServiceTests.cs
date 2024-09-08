@@ -1,12 +1,8 @@
 ﻿using AutoMapper;
 using Moq;
-using SQLitePCL;
 using TechChallenge5.Domain.DTO.Ativo;
-using TechChallenge5.Domain.DTO.Usuario;
 using TechChallenge5.Domain.Entities;
-using TechChallenge5.Domain.Exceptions;
 using TechChallenge5.Domain.Interfaces.Repositories;
-using TechChallenge5.Domain.Interfaces.Services;
 using TechChallenge5.Domain.Services;
 using TechChallenge5.Tests.Fixtures.Domain.Services;
 
@@ -42,7 +38,7 @@ namespace TechChallenge5.Tests.Core.Domain.Services
             Assert.IsNotNull(response);
             Assert.AreEqual(ativo.Codigo, response.Codigo);
         }
-        
+
         [Test]
         public async Task Delete_WhenCalled_ShouldReturnVoid()
         {
@@ -88,7 +84,7 @@ namespace TechChallenge5.Tests.Core.Domain.Services
             var ativo = AtivoServiceFixture.CreateAtivoEntity();
             ativo.Id = 1;
             var ativoDTO = AtivoServiceFixture.CreateAtivoDto();
-            var id = 2; 
+            var id = 2;
 
             _AtivoRepositoryMock.Setup(x => x.GetById(id)).ReturnsAsync(ativo);
 
@@ -96,8 +92,8 @@ namespace TechChallenge5.Tests.Core.Domain.Services
                 .Callback<CadastrarAtivoDTO, AtivoEntity>((dto, ativoEntity) =>
                 {
                     ativo.Nome = dto.Nome;
-                    ativo.Codigo = dto.Codigo;  
-                    ativo.TipoAtivo = dto.TipoAtivo;    
+                    ativo.Codigo = dto.Codigo;
+                    ativo.TipoAtivo = dto.TipoAtivo;
                 })
                 .Returns(() => ativo);
 

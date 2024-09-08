@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System.Text;
 using TechChallenge5.Data.DataContext;
 using TechChallenge5.Data.Repositories;
 using TechChallenge5.Domain.Entities;
@@ -15,7 +13,7 @@ namespace TechChallenge5.Data
     {
         public static IServiceCollection AddDataServices(this IServiceCollection services)
         {
-            services.AddDbContext<DatabaseContext>(options => 
+            services.AddDbContext<DatabaseContext>(options =>
                 options.UseSqlite("Data source=app.db"));
 
             services.AddAutoMapper(typeof(UsuarioEntity).Assembly);

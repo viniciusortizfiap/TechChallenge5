@@ -16,7 +16,7 @@ namespace TechChallenge5.Domain.Services
         private readonly IMapper _mapper;
 
         public UsuarioService(
-            IUsuarioRepository usuarioRepository, 
+            IUsuarioRepository usuarioRepository,
             IMapper mapper)
         {
             _usuarioRepository = usuarioRepository;
@@ -35,7 +35,8 @@ namespace TechChallenge5.Domain.Services
         {
             var usuario = await _usuarioRepository.GetById(usuarioId);
 
-            if (usuario == null) {
+            if (usuario == null)
+            {
                 throw new NotFoundException("Usuário inexistente");
             }
 

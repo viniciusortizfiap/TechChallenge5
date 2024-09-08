@@ -89,7 +89,7 @@ namespace TechChallenge5.Tests.Core.Domain.Services
                 usuario2
             };
 
-            _usuarioRepositoryMock.Setup(x => 
+            _usuarioRepositoryMock.Setup(x =>
                 x.GetAll()).ReturnsAsync(listaUsuarios);
 
             var lista = await _usuarioService.GetAll();
@@ -200,7 +200,7 @@ namespace TechChallenge5.Tests.Core.Domain.Services
             usuario.Id = 1;
             var id = 2;
 
-            _usuarioRepositoryMock.Setup(x => x.GetById(It.IsAny<int>())).ReturnsAsync((UsuarioEntity) null);
+            _usuarioRepositoryMock.Setup(x => x.GetById(It.IsAny<int>())).ReturnsAsync((UsuarioEntity)null);
 
             var usuarioRetorno = await _usuarioService.GetById(id);
 
@@ -256,9 +256,9 @@ namespace TechChallenge5.Tests.Core.Domain.Services
             {
                 _usuarioRepositoryMock.Verify(x => x.Update(It.IsAny<UsuarioEntity>()), Times.Once);
                 Assert.That(usuarioAtualizado.Id, Is.EqualTo(id));
-                Assert.That(usuarioAtualizado.Email, Is.EqualTo(usuarioDTo.Email));                
-                Assert.That(usuarioAtualizado.Nome, Is.EqualTo(usuarioDTo.Nome));                
-                Assert.That(usuarioAtualizado.Senha, Is.EqualTo(usuarioDTo.Senha));                
+                Assert.That(usuarioAtualizado.Email, Is.EqualTo(usuarioDTo.Email));
+                Assert.That(usuarioAtualizado.Nome, Is.EqualTo(usuarioDTo.Nome));
+                Assert.That(usuarioAtualizado.Senha, Is.EqualTo(usuarioDTo.Senha));
             });
         }
     }

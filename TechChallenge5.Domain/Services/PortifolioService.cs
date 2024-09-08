@@ -15,7 +15,7 @@ namespace TechChallenge5.Domain.Services
         private readonly IMapper _mapper;
 
         public PortifolioService(
-            IPortifolioRepository portfolioRepository, 
+            IPortifolioRepository portfolioRepository,
             ITransacaoRepository transacaoRepository,
             IMapper mapper
         )
@@ -54,7 +54,7 @@ namespace TechChallenge5.Domain.Services
         {
             var portifolio = await _portifolioRepository.GetById(portifolioId);
 
-            if(portifolio is not null && !portifolio.UsuarioId.Equals(usuarioId))
+            if (portifolio is not null && !portifolio.UsuarioId.Equals(usuarioId))
             {
                 return null;
             }

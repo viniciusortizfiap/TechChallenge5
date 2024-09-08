@@ -8,7 +8,7 @@ namespace TechChallenge5.Data.Repositories
     public class PortifolioRepository : EFRepository<PortifolioEntity>, IPortifolioRepository
     {
         public PortifolioRepository(DatabaseContext context) : base(context)
-        {          
+        {
         }
 
         public async Task<IList<PortifolioEntity>> GetAllWithUser(int usuarioId)

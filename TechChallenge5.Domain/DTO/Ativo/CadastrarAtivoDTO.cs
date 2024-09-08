@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TechChallenge5.Domain.DTO.Ativo
+﻿namespace TechChallenge5.Domain.DTO.Ativo
 {
     public class CadastrarAtivoDTO
     {

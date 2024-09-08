@@ -42,7 +42,7 @@ namespace TechChallenge5.Controllers
 
         [Authorize]
         [HttpPut("alterar")]
-        public async Task<IActionResult> Alterar([FromBody]  CadastrarUsuarioDTO usuarioDto)
+        public async Task<IActionResult> Alterar([FromBody] CadastrarUsuarioDTO usuarioDto)
         {
             var id = int.Parse(User.Claims.FirstOrDefault(c => c.Type == "Id").Value);
             var usuario = await _usuarioService.Update(id, usuarioDto);

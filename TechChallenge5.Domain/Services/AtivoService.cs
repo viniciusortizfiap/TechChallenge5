@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using System.Runtime.InteropServices;
-using System;
 using TechChallenge5.Domain.DTO.Ativo;
 using TechChallenge5.Domain.Entities;
 using TechChallenge5.Domain.Interfaces.Repositories;
