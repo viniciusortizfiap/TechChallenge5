@@ -3,6 +3,7 @@ using Moq;
 using TechChallenge5.Domain.DTO.Login;
 using TechChallenge5.Domain.DTO.Usuario;
 using TechChallenge5.Domain.Entities;
+using TechChallenge5.Domain.Exceptions;
 using TechChallenge5.Domain.Interfaces.Repositories;
 using TechChallenge5.Domain.Services;
 using TechChallenge5.Tests.Fixtures.Domain.Services;
@@ -51,7 +52,7 @@ namespace TechChallenge5.Tests.Core.Domain.Services
 
             _usuarioRepositoryMock.Setup(x => x.GetById(It.IsAny<int>())).ReturnsAsync((UsuarioEntity)null);
 
-            Assert.ThrowsAsync<Exception>(() => _usuarioService.Delete(1));
+            Assert.ThrowsAsync<NotFoundException>(() => _usuarioService.Delete(1));
         }
 
         [Test]
@@ -222,7 +223,7 @@ namespace TechChallenge5.Tests.Core.Domain.Services
 
             Assert.Multiple(() =>
             {
-                Assert.ThrowsAsync<Exception>(async () => await _usuarioService.Update(id, usuarioDTo));
+                Assert.ThrowsAsync<NotFoundException>(async () => await _usuarioService.Update(id, usuarioDTo));
                 Assert.That(usuario.Id, Is.Not.EqualTo(id));
             });
         }
